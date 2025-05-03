@@ -1,5 +1,5 @@
 
-import { GitHub, Link } from "lucide-react";
+import { Github, Link } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 
 export function Projects() {
@@ -102,7 +102,7 @@ export function Projects() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <GitHub size={18} />
+                    <Github size={18} />
                     <span>Code</span>
                   </a>
                   <a 
@@ -127,7 +127,7 @@ export function Projects() {
             className="px-6 py-3 border border-white/20 hover:border-neon-blue hover:text-neon-blue rounded-lg transition-all duration-300 flex items-center gap-2"
           >
             View All Projects
-            <GitHub size={18} />
+            <Github size={18} />
           </a>
         </AnimatedSection>
       </div>

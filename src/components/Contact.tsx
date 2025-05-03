@@ -1,6 +1,6 @@
 
 import { useRef, useState } from "react";
-import { Mail, Phone, Linkedin, GitHub, SendIcon } from "lucide-react";
+import { Mail, Phone, Linkedin, Github, SendIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import AnimatedSection from "./AnimatedSection";
 
@@ -46,7 +46,7 @@ export function Contact() {
       href: "https://linkedin.com/"
     },
     {
-      icon: <GitHub className="text-neon-blue" size={24} />,
+      icon: <Github className="text-neon-blue" size={24} />,
       label: "GitHub",
       value: "Check my code",
       href: "https://github.com/"
