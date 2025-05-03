@@ -111,7 +111,7 @@ export function Hero() {
                   {/* Profile image with inner border */}
                   <div className="absolute inset-1 rounded-full overflow-hidden border-2 border-white/20">
                     <img 
-                      src="/lovable-uploads/d99b8db5-5a53-4793-a577-85a7f4401551.png" 
+                      src="https://i.postimg.cc/4NNCmvKd/my.jpg" 
                       alt="Kapila Shobit"
                       className="w-full h-full object-cover"
                     />
