@@ -3,27 +3,57 @@ import { useRef, useState } from "react";
 import { Mail, Phone, Linkedin, Github, SendIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import AnimatedSection from "./AnimatedSection";
+import emailjs from "@emailjs/browser";
 
 export function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  
+  // Initialize EmailJS
+  const PUBLIC_KEY = "5_Sma9CEOzPP_Wmmi";
+  const TEMPLATE_ID = "template_5hec9i1";
+  const SERVICE_ID = "service_73q463g";
+  
+  // Initialize EmailJS
+  emailjs.init(PUBLIC_KEY);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      if (formRef.current) {
-        formRef.current.reset();
-      }
-      toast({
-        title: "Message sent!",
-        description: "Thanks for reaching out. I'll get back to you soon.",
-      });
-    }, 1500);
+    // Get form data
+    if (formRef.current) {
+      const formData = new FormData(formRef.current);
+      
+      const templateParams = {
+        from_name: formData.get('name'),
+        from_email: formData.get('email'),
+        message: formData.get('message')
+      };
+      
+      // Send email using EmailJS
+      emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
+        .then((response) => {
+          console.log('SUCCESS!', response.status, response.text);
+          setIsSubmitting(false);
+          if (formRef.current) {
+            formRef.current.reset();
+          }
+          toast({
+            title: "Message sent!",
+            description: "Thanks for reaching out. I'll get back to you soon.",
+          });
+        }, (error) => {
+          console.log('FAILED...', error);
+          setIsSubmitting(false);
+          toast({
+            title: "Message failed to send",
+            description: "There was an error sending your message. Please try again.",
+            variant: "destructive"
+          });
+        });
+    }
   };
 
   const contactInfo = [
@@ -80,6 +110,7 @@ export function Contact() {
                   <input
                     type="text"
                     id="name"
+                    name="name"
                     required
                     className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon-blue transition-colors"
                     placeholder="Your name"
@@ -92,6 +123,7 @@ export function Contact() {
                   <input
                     type="email"
                     id="email"
+                    name="email"
                     required
                     className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon-blue transition-colors"
                     placeholder="Your email"
@@ -103,6 +135,7 @@ export function Contact() {
                   </label>
                   <textarea
                     id="message"
+                    name="message"
                     required
                     rows={5}
                     className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon-blue transition-colors resize-none"
